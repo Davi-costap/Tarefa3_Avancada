@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "921488207980",
+    "firebase_url": "https://daviavancada-d0c0a-default-rtdb.firebaseio.com",
+    "project_id": "daviavancada-d0c0a",
+    "storage_bucket": "daviavancada-d0c0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921488207980:android:64b87038cf092d22ece849",
+        "android_client_info": {
+          "package_name": "com.example.davi_avancada"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyPPtisfblZpG9Q7oafKTdDGTAFptMUDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
