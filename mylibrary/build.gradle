@@ -26,6 +26,28 @@ android {
     }
 }
 
+publishing {
+    publications {
+        bar(MavenPublication){
+            groupId "com.example"
+            artifactId "mylibrary"
+            version "1.0"
+            artifact("$buildDir/outputs/aar/mylibrary-release.aar")
+        }
+    }
+    repositories {
+        maven{
+            name "GithubPackages"
+            url uri("https://maven.pkg.github.com/Davi-costap/Tarefa3_Avancada")
+            credentials{
+                username = "Davi-costap"
+                password = "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"
+            }
+        }
+
+    }
+}
+
 dependencies {
 
     implementation libs.appcompat
@@ -33,4 +55,5 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    implementation "com.example:mylibrary:1.0"
 }
