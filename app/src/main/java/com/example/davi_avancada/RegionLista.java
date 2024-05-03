@@ -17,11 +17,11 @@ public class RegionLista extends ArrayAdapter<Region> {
     }
 
     @Override
-    public View getView(int position, View viewConvert, ViewGroup parent) {
-        Region regiao = getItem(position);
+    public View getView(int pos, View viewConvert, ViewGroup containerViewGroup) {
+        Region regiao = getItem(pos);
 
         if (viewConvert == null) {
-            viewConvert = LayoutInflater.from(getContext()).inflate(R.layout.activity_regioes, parent, false);
+            viewConvert = LayoutInflater.from(getContext()).inflate(R.layout.activity_regioes, containerViewGroup, false);
         }
 
         TextView nameRegion = viewConvert.findViewById(R.id.textVRegion);
