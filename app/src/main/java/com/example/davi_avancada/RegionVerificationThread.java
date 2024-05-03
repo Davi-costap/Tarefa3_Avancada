@@ -35,17 +35,14 @@ public class RegionVerificationThread extends Thread {
             mainActivity.showMessage("Existe uma região dentro do limite de 30 metros cadastrada na Fila.");
             return; // Retorna se a localização estiver dentro do limite
         }
-
         // Verificação de Regiões no Firebase
         verifyRegionInFirebase(currentLocation, (canAddFirebase) -> {
             if (!canAddFirebase) {
                 mainActivity.showMessage("Existe uma região dentro do limite de 30 metros cadastrada no Firebase.");
                 return; // Retorna se não for possível adicionar
             }
-
             synchronized (regionQueue) {
                 Region lastRegion = getLastRegion(regionQueue); // Pega o último item da fila
-
                 if (lastRegion == null) {
                     // Se a fila estiver vazia, adicione uma nova Região
                     regionQueue.add(new Region("Region", currentLocation));

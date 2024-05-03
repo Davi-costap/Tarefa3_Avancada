@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Looper;
 import androidx.core.app.ActivityCompat;
-
 public class GpsThread extends Thread {
     private final Context context;
     private final LocationManager locationManager;
