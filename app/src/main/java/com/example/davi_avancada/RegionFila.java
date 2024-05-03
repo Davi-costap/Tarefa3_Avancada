@@ -9,21 +9,19 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RegionFila extends AppCompatActivity {
-    private ListView listVRegions;
-    private RegionLista adapter;
+    private ListView listRegions;
+    private RegionLista adapterLista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regioes_fila);
 
-        listVRegions = findViewById(R.id.listVRegions);
+        listRegions = findViewById(R.id.listVRegions);
 
-        // Obter a lista de regiões passada pelo Intent
         List<Region> regioes = (List<Region>) getIntent().getSerializableExtra("listaRegioes");
-        adapter = new RegionLista(this, regioes);
-        listVRegions.setAdapter(adapter);
+        adapterLista = new RegionLista(this, regioes);
+        listRegions.setAdapter(adapterLista);
 
-        // Aqui você pode adicionar outras configurações ou interações com a lista
     }
 }

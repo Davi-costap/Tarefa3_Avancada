@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         gpsThread.start();
 
 
-        // Listener para o botão Adicionar Região
+        // Listener botão Adicionar Região
         addRegion.setOnClickListener(v -> {
             // Verificar permissão de localização
             if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -159,8 +159,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-// Supondo que você tenha uma referência ao banco de dados do Firebase chamada 'databaseReference'
-
     public boolean checkRegionInFirebase(Location currentLocation) {
         final boolean[] canAdd = {true};
 
@@ -195,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-    // Dentro do método saveDataToFirebaseAndClearQueue()
     private void saveDataToFirebaseAndClearQueue() {
         FirebaseSaveThread saveThread = new FirebaseSaveThread(semaphore, regionQueue, databaseReference);
         saveThread.start();
@@ -219,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         LocationListener locationListener = new LocationListener() {
-            // Dentro do método onLocationChanged da MainActivity
+
             @Override
             public void onLocationChanged(Location location) {
                 LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());

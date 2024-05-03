@@ -46,7 +46,7 @@ public class RegionVerificationThread extends Thread {
                 if (lastRegion == null) {
                     // Se a fila estiver vazia, adicione uma nova Região
                     regionQueue.add(new Region("Region", currentLocation));
-                    mainActivity.showMessage("Região adicionada à fila.");
+                    mainActivity.showMessage("Region adicionada à fila.");
                 } else if (lastRegion instanceof SubRegion) {
                     handleRestrictedRegionAddition(regionQueue, currentLocation); // Adiciona RestrictedRegion se a última for SubRegion
                 } else if (lastRegion instanceof RestrictedRegion) {

@@ -17,19 +17,19 @@ public class RegionLista extends ArrayAdapter<Region> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View viewConvert, ViewGroup parent) {
         Region regiao = getItem(position);
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_regioes, parent, false);
+        if (viewConvert == null) {
+            viewConvert = LayoutInflater.from(getContext()).inflate(R.layout.activity_regioes, parent, false);
         }
 
-        TextView nomeRegiao = convertView.findViewById(R.id.textVRegion);
-        TextView coordenadasRegiao = convertView.findViewById(R.id.textVCoordenadas);
+        TextView nameRegion = viewConvert.findViewById(R.id.textVRegion);
+        TextView coordRegion = viewConvert.findViewById(R.id.textVCoordenadas);
 
-        nomeRegiao.setText(regiao.getName());
-        coordenadasRegiao.setText(String.format("Lat: %.2f, Lng: %.2f", regiao.getLatitude(), regiao.getLongitude()));
+        nameRegion.setText(regiao.getName());
+        coordRegion.setText(String.format("Lat: %.2f, Lng: %.2f", regiao.getLatitude(), regiao.getLongitude()));
 
-        return convertView;
+        return viewConvert;
     }
 }
