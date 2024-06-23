@@ -1,5 +1,6 @@
 package com.example.davi_avancada;
 
+import android.os.Process;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -22,6 +23,12 @@ public class GpsThread extends Thread {
 
     @Override
     public void run() {
+
+          // Forçar a thread a usar apenas o núcleo 0
+        int coreNumber = 0; //indica o núcleo que deseja usar
+        int mask = 1 << coreNumber; //Cria uma máscara para o núcleo escolhido
+        Process.setThreadPriority(Process.myTid(), mask); //Aplica a máscara ao thread atual
+
         Looper.prepare();
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

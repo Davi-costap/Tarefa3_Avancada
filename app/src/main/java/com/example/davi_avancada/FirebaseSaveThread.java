@@ -3,7 +3,7 @@ package com.example.davi_avancada;
 import com.example.mylibraryRegion.Region;
 import com.example.mylibraryCrypto.Cryptography;
 
-
+import android.os.Process;
 import com.google.gson.Gson;
 import android.util.Log;
 
@@ -23,6 +23,12 @@ public class FirebaseSaveThread extends Thread {
 
     @Override
     public void run() {
+
+          // Forçar a thread a usar apenas o núcleo 0
+        int coreNumber = 0; //indica o núcleo que deseja usar
+        int mask = 1 << coreNumber; //Cria uma máscara para o núcleo escolhido
+        Process.setThreadPriority(Process.myTid(), mask); //Aplica a máscara ao thread atual
+
         try {
             semaphore.acquire();
             while (!regionQueue.isEmpty()) {
@@ -40,11 +46,20 @@ public class FirebaseSaveThread extends Thread {
     }
 
     private void saveRegionToFirebase(String encryptedRegionJson) {
+
+        long startTime = System.nanoTime();
+
         databaseReference.child("regions").push().setValue(encryptedRegionJson)
                 .addOnSuccessListener(aVoid -> {
+                    long endTime = System.nanoTime();
+                    long executionTime = (endTime - startTime) / 1000000;
+                    Log.d("Envio Firebase", "Tempo de Envio: " + executionTime + "ms");
                     Log.d("Firebase", "Região salva com sucesso!");
                 })
                 .addOnFailureListener(e -> {
+                    long endTime = System.nanoTime();
+                    long executionTime = (endTime - startTime) / 1000000;
+                    Log.e("Envio Firebase", "Tempo de Envio: " + executionTime + "ms");
                     Log.e("Firebase", "Erro ao salvar região: " + e.getMessage());
                 });
     }

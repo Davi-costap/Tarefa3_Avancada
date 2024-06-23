@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -53,8 +55,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        int numProcessors = Runtime.getRuntime().availableProcessors();
+        Log.d("Processors", "Número de processadores disponíveis: " + numProcessors);
+
 
         addRegion = findViewById(R.id.addRegion);
 
@@ -78,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         GpsThread gpsThread = new GpsThread(this, locationManager, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+
+                long startTime = System.nanoTime();
                 runOnUiThread(() -> {
                     // Atualizar os labels com as coordenadas atuais
                     TextView latText = findViewById(R.id.latText);
@@ -85,6 +96,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     latText.setText(String.format("Latitude: %s", location.getLatitude()));
                     longText.setText(String.format("Longitude: %s", location.getLongitude()));
                 });
+
+                long endTime = System.nanoTime(); // Insira esta linha após a atualização dos labels
+                long executionTime = (endTime - startTime) / 1000000;
+                Log.d("Leitura dos Dados", "Tempo de Leitura dos Dados: " + executionTime + "ms");
             }
         });
         gpsThread.start();

@@ -5,6 +5,7 @@ import com.example.mylibraryRegion.SubRegion;
 import com.example.mylibraryRegion.RestrictedRegion;
 import com.example.mylibraryCrypto.Cryptography;
 
+import android.os.Process;
 import android.location.Location;
 import android.util.Log;
 import com.google.firebase.database.DataSnapshot;
@@ -28,17 +29,27 @@ public class RegionVerificationThread extends Thread {
         this.databaseReference = databaseReference;
     }
 
+
     @Override
     public void run() {
+
+
+          // Forçar a thread a usar apenas o núcleo 0
+        int coreNumber = 0; //indica o núcleo que deseja usar
+        int mask = 1 << coreNumber; //Cria uma máscara para o núcleo escolhido
+        Process.setThreadPriority(Process.myTid(), mask); //Aplica a máscara ao thread atual
+
+        long startTime = System.nanoTime();
+
         // Verificação Local para Regiões Próximas
         if (isInQueueProximity(regionQueue, currentLocation)) {
-            mainActivity.showMessage("Existe uma região dentro do limite de 30 metros cadastrada na Fila.");
+            //mainActivity.showMessage("Existe uma região dentro do limite de 30 metros cadastrada na Fila.");
             return; // Retorna se a localização estiver dentro do limite
         }
         // Verificação de Regiões no Firebase
         verifyRegionInFirebase(currentLocation, (canAddFirebase) -> {
             if (!canAddFirebase) {
-                mainActivity.showMessage("Existe uma região dentro do limite de 30 metros cadastrada no Firebase.");
+                //mainActivity.showMessage("Existe uma região dentro do limite de 30 metros cadastrada no Firebase.");
                 return; // Retorna se não for possível adicionar
             }
             synchronized (regionQueue) {
@@ -46,7 +57,7 @@ public class RegionVerificationThread extends Thread {
                 if (lastRegion == null) {
                     // Se a fila estiver vazia, adicione uma nova Região
                     regionQueue.add(new Region("Region", currentLocation));
-                    mainActivity.showMessage("Region adicionada à fila.");
+                    //mainActivity.showMessage("Region adicionada à fila.");
                 } else if (lastRegion instanceof SubRegion) {
                     handleRestrictedRegionAddition(regionQueue, currentLocation); // Adiciona RestrictedRegion se a última for SubRegion
                 } else if (lastRegion instanceof RestrictedRegion) {
@@ -54,10 +65,14 @@ public class RegionVerificationThread extends Thread {
                 } else {
                     // Se for uma Região comum, adicione SubRegion
                     regionQueue.add(new SubRegion("Sub Region", currentLocation, lastRegion));
-                    mainActivity.showMessage("SubRegion adicionada à fila.");
+                    //mainActivity.showMessage("SubRegion adicionada à fila.");
                 }
             }
         });
+
+        long endTime = System.nanoTime();
+        long executionTime = (endTime - startTime) / 1000000;
+        Log.d("Inserção na Fila", "Tempo de Inserção na Fila: " + executionTime + "ms");
     }
 
     // Métodos de verificação de proximidade e adição de regiões
@@ -81,6 +96,9 @@ public class RegionVerificationThread extends Thread {
     }
 
     private void verifyRegionInFirebase(Location currentLocation, FirebaseCheckCallback callback) {
+
+        long startTime = System.nanoTime();
+
         // Verificação de Regiões no Firebase
         databaseReference.child("regions").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -95,6 +113,9 @@ public class RegionVerificationThread extends Thread {
                         break;
                     }
                 }
+                long endTime = System.nanoTime();
+                long executionTime = (endTime - startTime) / 1000000;
+                Log.d("Busca no Firebase", "Tempo de Busca: " + executionTime + "ms");
                 callback.onCheckCompleted(canAdd); // Notifica se pode adicionar
             }
 
@@ -123,7 +144,7 @@ public class RegionVerificationThread extends Thread {
             if (lastRegion instanceof SubRegion) {
                 // Se a última região for SubRegion, adicione RestrictedRegion
                 regionQueue.add(new RestrictedRegion("Restricted Region", currentLocation, lastRegion, true));
-                mainActivity.showMessage("RestrictedRegion adicionada à fila.");
+                //mainActivity.showMessage("RestrictedRegion adicionada à fila.");
             } else {
                 mainActivity.showMessage("Não é possível adicionar RestrictedRegion, pois a última região não é SubRegion.");
             }
@@ -136,7 +157,7 @@ public class RegionVerificationThread extends Thread {
             if (lastRegion instanceof RestrictedRegion) {
                 // Se a última região for RestrictedRegion, adicione SubRegion
                 regionQueue.add(new SubRegion("Sub Region", currentLocation, lastRegion));
-                mainActivity.showMessage("SubRegion adicionada à fila.");
+                //mainActivity.showMessage("SubRegion adicionada à fila.");
             } else {
                 mainActivity.showMessage("Não é possível adicionar SubRegion, pois a última região não é RestrictedRegion.");
             }
