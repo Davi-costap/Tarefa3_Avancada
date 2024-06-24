@@ -20,8 +20,8 @@ dependencyResolutionManagement {
             name "GithubPackages"
             url uri("https://maven.pkg.github.com/Davi-costap/Tarefa3_Avancada")
             credentials{
-                username = "Davi-costap"
-                password = "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"
+                username = System.getenv("GITHUB_USER")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }
