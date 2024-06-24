@@ -7,7 +7,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Cryptography {
-    private static final String KEY = "BH0xs7EZ7mzD1EjgEdbAH3Eu8J3CYb2f"; // Chave secreta
+    private static final String KEY = "chave secreta aqui"; // Chave secreta
     private static final String ALGORITHM = "AES"; // Algoritmo de criptografia
 
     public static String encrypt(String data) {
