@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Queue<Region> regionQueue = new LinkedList<>();
     private GoogleMap gMap;
     private Marker currentLocationMarker;
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://daviavancada-d0c0a-default-rtdb.firebaseio.com/").getReference();
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance("link Realtime Firebase aqui").getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         // Inicializar a referência do Firebase
-        databaseReference = FirebaseDatabase.getInstance("https://daviavancada-d0c0a-default-rtdb.firebaseio.com/").getReference();
+        databaseReference = FirebaseDatabase.getInstance("link Realtime Firebase aqui").getReference();
 
         // Verificar se a permissão foi concedida
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
