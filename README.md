@@ -77,6 +77,9 @@ Aqui está um vídeo mostrando como testar o projeto:
 https://github.com/Davi-costap/app_gps_android_studio/assets/148830331/b792137a-d9a5-4c05-9cc4-8a717154f6d7
 
 
+Um vídeo mais detalhado se encontra neste link: ![Testes do Aplicativo](https://youtu.be/lFteotQ8blw)
+
+
 
 
 
