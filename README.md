@@ -69,3 +69,15 @@ Este projeto foi desenvolvido como parte da disciplina de Automação Avançada 
 - `GpsThread`: Classe thread projetada para gerenciar a atualização de localização, para receber atualizações de localização do GPS.
 - `FirebaseSaveThread`: Classe thread responsável por gerenciar o processo de salvamento de regiões no Firebase, utilizando um semáforo para garantir que apenas uma thread possa acessar a fila de regiões de cada vez.
 
+## Testando o Projeto
+
+Aqui está um vídeo mostrando como testar o projeto:
+
+
+https://github.com/Davi-costap/app_gps_android_studio/assets/148830331/b792137a-d9a5-4c05-9cc4-8a717154f6d7
+
+
+
+
+
+
