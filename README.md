@@ -5,7 +5,7 @@ Este projeto foi desenvolvido como parte da disciplina de Automação Avançada 
 
 ## Funcionalidades
 
-### Tarefa 1: LLeitura de Dados 
+### Tarefa 1: Leitura de Dados 
 - Leitura periódica da localização do dispositivo usando GPS.
 - Exibição das coordenadas atuais em componentes visuais (labels).
 - Indicação da localização atual em um mapa.
